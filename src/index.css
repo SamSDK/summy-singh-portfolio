@@ -1,0 +1,89 @@
+/* src/index.css */
+:root {
+  --color-bg-base: #f5f1eb;
+  --color-text: #1c1a17;
+  --color-glass-fill: rgba(255, 255, 255, 0.55);
+  --color-glass-border: rgba(255, 255, 255, 0.7);
+  --color-pill-fill: rgba(28, 26, 23, 0.08);
+  --shadow-glass: 0 8px 32px rgba(31, 25, 17, 0.12);
+  --radius-card: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background:
+    radial-gradient(circle at 20% 20%, #ffd9c9 0%, transparent 45%),
+    radial-gradient(circle at 80% 30%, #c9e7ff 0%, transparent 50%),
+    radial-gradient(circle at 50% 90%, #ffe8b0 0%, transparent 55%),
+    var(--color-bg-base);
+  background-attachment: fixed;
+  color: var(--color-text);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.glass-card {
+  background: var(--color-glass-fill);
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-glass);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  padding: 24px;
+}
+
+.pill {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: var(--color-pill-fill);
+  color: var(--color-text);
+  margin: 4px 6px 4px 0;
+}
+
+.section {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.section-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 999px;
+  border: 1px solid var(--color-glass-border);
+  background: var(--color-glass-fill);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--color-text);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 56px 16px;
+  }
+}
