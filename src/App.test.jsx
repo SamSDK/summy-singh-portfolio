@@ -1,7 +1,15 @@
 import { render, screen } from '@testing-library/react'
 import App from './App.jsx'
 
-test('renders without crashing', () => {
+test('renders all six sections in order', () => {
   render(<App />)
-  expect(screen.getByText(/Summy Singh Portfolio/i)).toBeInTheDocument()
+  const headings = screen.getAllByRole('heading').filter((h) => h.tagName === 'H2').map((h) => h.textContent)
+  expect(headings).toEqual([
+    'Who Am I',
+    'Services',
+    'Portfolio',
+    'Testimonials',
+    "Let's create something",
+  ])
+  expect(screen.getByText('SUMMY SINGH')).toBeInTheDocument()
 })

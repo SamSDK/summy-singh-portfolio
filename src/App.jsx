@@ -1,3 +1,19 @@
+import Hero from './components/Hero.jsx'
+import WhoAmI from './components/WhoAmI.jsx'
+import Services from './components/Services.jsx'
+import Portfolio from './components/Portfolio.jsx'
+import Testimonials from './components/Testimonials.jsx'
+import Contact from './components/Contact.jsx'
+
 export default function App() {
-  return <div className="app">Summy Singh Portfolio</div>
+  return (
+    <main>
+      <Hero />
+      <WhoAmI />
+      <Services />
+      <Portfolio />
+      <Testimonials />
+      <Contact />
+    </main>
+  )
 }
