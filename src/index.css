@@ -168,3 +168,25 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.testimonial-quote {
+  margin-bottom: 12px;
+  font-style: italic;
+}
+
+.testimonial-author {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+}
