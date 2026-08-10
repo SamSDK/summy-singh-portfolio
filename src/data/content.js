@@ -71,6 +71,21 @@ const contact = {
   bookingHref: hero.bookingHref,
 }
 
-const content = { hero, whoAmI, services, portfolio, testimonials, contact }
+// Section headings shown above each section — not user-facing "content" in the
+// personality-bullet sense, but still copy, so it lives here rather than in JSX.
+const sectionTitles = {
+  whoAmI: 'Who Am I',
+  services: 'Services',
+  portfolio: 'Portfolio',
+  testimonials: 'Testimonials',
+}
+
+// Labels for the two CTA buttons used in both the hero and contact sections.
+const ctaLabels = {
+  email: 'Email Me',
+  booking: 'Book a Call',
+}
+
+const content = { hero, whoAmI, services, portfolio, testimonials, contact, sectionTitles, ctaLabels }
 
 export default content

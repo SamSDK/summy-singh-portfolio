@@ -2,6 +2,7 @@ import content from '../data/content.js'
 
 export default function Contact() {
   const { heading, subheading, emailHref, bookingHref } = content.contact
+  const { email, booking } = content.ctaLabels
 
   return (
     <section className="section contact">
@@ -10,10 +11,10 @@ export default function Contact() {
         <p className="contact-subheading">{subheading}</p>
         <div className="hero-ctas">
           <a className="btn" href={emailHref}>
-            Email Me
+            {email}
           </a>
           <a className="btn" href={bookingHref} target="_blank" rel="noreferrer">
-            Book a Call
+            {booking}
           </a>
         </div>
       </div>
