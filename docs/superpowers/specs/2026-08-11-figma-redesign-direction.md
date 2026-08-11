@@ -96,10 +96,17 @@ Empty vertical space between the top bar and headline is **load-bearing** — it
 where the video subject sits. Verify against a real frame once footage exists; if the subject is
 centred rather than lower-third, the headline will collide with them.
 
-### Middle sections — BLOCKED
-About / Services / Portfolio go between Hero and Contact. Direction depends on the second reference
-template, which is inaccessible. These sections must resolve into the page's light/dark alternation
-rather than introduce a third mood.
+### Middle sections — RESOLVED (2026-08-11)
+The second Figma template stayed inaccessible; the user supplied momiugc.com as the structural
+reference instead ("sections similar to how this is set up, not its styling"). Adopted structure,
+in page order: Hero → Stats bar (3 proof chips, no heading) → Clients wall (invented placeholder
+brand names only — real brands must never be listed before Summy has actually worked with them) →
+Portfolio by niche (4 categories × 9 items, 9:16 tiles, mono glass tag chips, auto-fill grid:
+~7 columns at 1440px, hard-capped at 7 via a ≥1580px media query, explicit 2-col override ≤480px,
+hover lift with reduced-motion opt-out) → About (bio paragraph + personality pills) → Reviews
+(testimonial cards + rating/social meta lines) → "What I Offer" (services cards + Work With Me
+CTA) → Contact → Footer. Stats deliberately avoid revenue/ROAS-style claims — inventing
+performance numbers would be fabricated marketing results.
 
 ### Contact (634px tall)
 Cream + gradient mesh. Mono eyebrow → 77px two-line headline → hairline divider → detail columns

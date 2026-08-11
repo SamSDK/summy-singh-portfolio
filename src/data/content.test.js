@@ -7,22 +7,36 @@ test('content has all sections with expected shape', () => {
   expect(content.hero.videoAlt).toBeTruthy()
   expect(content.hero.emailHref).toMatch(/^mailto:/)
   expect(content.hero.bookingHref).toBeTruthy()
-  // videoUrl/posterUrl are intentionally allowed to be empty until real footage exists,
-  // so assert the keys are present rather than truthy.
   expect(content.hero).toHaveProperty('videoUrl')
   expect(content.hero).toHaveProperty('posterUrl')
 
+  expect(content.stats.length).toBeGreaterThan(0)
+  expect(content.stats.every((s) => s.value && s.label)).toBe(true)
+
+  expect(content.clients.names.length).toBeGreaterThan(0)
+  expect(content.clients.names.every(Boolean)).toBe(true)
+  expect(content.clients.tail).toBeTruthy()
+
   expect(content.whoAmI.length).toBeGreaterThan(0)
-  expect(content.whoAmI.every((bullet) => Boolean(bullet))).toBe(true)
+  expect(content.whoAmI.every(Boolean)).toBe(true)
+
+  expect(content.about.body).toBeTruthy()
 
   expect(content.services.length).toBeGreaterThan(0)
   expect(content.services.every((s) => s.title && s.description)).toBe(true)
 
-  expect(content.portfolio.length).toBeGreaterThan(0)
-  expect(content.portfolio.every((p) => p.src && p.alt)).toBe(true)
+  expect(content.portfolio.categories.length).toBeGreaterThan(0)
+  content.portfolio.categories.forEach((category) => {
+    expect(category.name).toBeTruthy()
+    expect(category.items.length).toBeGreaterThan(0)
+    expect(category.items.every((i) => i.src && i.alt && i.tag)).toBe(true)
+  })
 
   expect(content.testimonials.length).toBeGreaterThan(0)
   expect(content.testimonials.every((t) => t.quote && t.author && t.role)).toBe(true)
+
+  expect(content.reviews.ratingLine).toBeTruthy()
+  expect(content.reviews.socialLine).toBeTruthy()
 
   expect(content.contact.eyebrow).toBeTruthy()
   expect(content.contact.heading).toBeTruthy()
@@ -36,11 +50,18 @@ test('content has all sections with expected shape', () => {
   expect(content.footer.wordmark).toBeTruthy()
   expect(content.footer.backToTopLabel).toBeTruthy()
 
-  expect(content.sectionTitles.whoAmI).toBeTruthy()
-  expect(content.sectionTitles.services).toBeTruthy()
+  expect(content.sectionTitles.clients).toBeTruthy()
   expect(content.sectionTitles.portfolio).toBeTruthy()
-  expect(content.sectionTitles.testimonials).toBeTruthy()
+  expect(content.sectionTitles.about).toBeTruthy()
+  expect(content.sectionTitles.reviews).toBeTruthy()
+  expect(content.sectionTitles.offer).toBeTruthy()
 
   expect(content.ctaLabels.email).toBeTruthy()
   expect(content.ctaLabels.booking).toBeTruthy()
+  expect(content.ctaLabels.workWithMe).toBeTruthy()
+})
+
+test('portfolio item keys are unique within the whole portfolio', () => {
+  const srcs = content.portfolio.categories.flatMap((c) => c.items.map((i) => i.src))
+  expect(new Set(srcs).size).toBe(srcs.length)
 })

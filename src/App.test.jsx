@@ -9,16 +9,17 @@ test('renders all sections in order', () => {
     .filter((h) => h.tagName === 'H2')
     .map((h) => h.textContent)
   expect(headings).toEqual([
-    content.sectionTitles.whoAmI,
-    content.sectionTitles.services,
+    content.sectionTitles.clients,
     content.sectionTitles.portfolio,
-    content.sectionTitles.testimonials,
+    content.sectionTitles.about,
+    content.sectionTitles.reviews,
+    content.sectionTitles.offer,
     content.contact.heading,
   ])
   expect(screen.getByRole('heading', { level: 1, name: content.hero.name })).toBeInTheDocument()
 })
 
-test('renders the footer below the contact section', () => {
+test('renders the footer', () => {
   render(<App />)
   expect(screen.getByText(content.footer.wordmark)).toBeInTheDocument()
   expect(screen.getByRole('link', { name: content.footer.backToTopLabel })).toBeInTheDocument()

@@ -42,6 +42,8 @@
   --page-margin: clamp(1.25rem, 6.9vw, 8.3rem);
   --section-y: clamp(3.5rem, 5.2vw, 6.25rem);
   --radius-card: 16px;
+  --radius-card-sm: 12px;
+  --shadow-tile: 0 4px 14px rgba(26, 23, 18, 0.12);
 
   /* Swapping the face = this line + the Google Fonts <link> in index.html. Nothing
      else references a font family, so no component needs touching. */
@@ -268,10 +270,6 @@ a {
 
 /* --------------------------------------------------------- middle sections */
 
-.who-am-i-card {
-  max-width: 60rem;
-}
-
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -288,18 +286,116 @@ a {
   color: var(--text-muted);
 }
 
-.portfolio-grid {
+.stats-bar {
+  list-style: none;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: 1.25rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: flex-start;
+}
+
+.stat-value {
+  font-size: var(--type-heading-l);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.stat-label {
+  font-size: var(--type-body-s);
+  color: var(--text-muted);
+}
+
+.clients-wall {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: clamp(1.5rem, 3vw, 3rem);
+  row-gap: 0.75rem;
+  max-width: 70rem;
+}
+
+.client-name {
+  font-size: var(--type-body-l);
+  font-weight: 300;
+}
+
+.clients-tail {
+  color: var(--text-muted);
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.75rem;
 }
 
 .portfolio-image {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 9 / 16;
   object-fit: cover;
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-glass);
+  border-radius: var(--radius-card-sm);
+  box-shadow: var(--shadow-tile);
+}
+
+/* Hard cap: never more than 7 tiles per row. The breakpoint matters: auto-fill with
+   minmax(160px, 1fr) starts producing an 8th column around a ~1583px viewport
+   (content = 86.2% of viewport; 8 tracks need 8×160 + 7×12px gap = 1364px), so the
+   cap must bind from 1580px up, not just on very wide screens. */
+@media (min-width: 1580px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+
+.portfolio-category {
+  margin-bottom: clamp(2.5rem, 4vw, 4rem);
+}
+
+.portfolio-category:last-child {
+  margin-bottom: 0;
+}
+
+.portfolio-category-name {
+  font-family: var(--font-mono);
+  font-size: var(--type-body-m);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.portfolio-item {
+  position: relative;
+  margin: 0;
+  transition: transform 0.18s ease;
+}
+
+.portfolio-item:hover {
+  transform: translateY(-6px);
+}
+
+.portfolio-tag {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .testimonials-grid {
@@ -317,6 +413,31 @@ a {
 .testimonial-author {
   font-size: var(--type-body-s);
   color: var(--text-muted);
+}
+
+.about-body {
+  max-width: 62ch;
+  font-size: var(--type-body-l);
+  line-height: 1.55;
+  margin-bottom: clamp(1.5rem, 2.5vw, 2.25rem);
+}
+
+.reviews-meta {
+  display: flex;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  flex-wrap: wrap;
+  margin-top: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+.reviews-rating,
+.reviews-social {
+  font-family: var(--font-mono);
+  font-size: var(--type-body-s);
+  color: var(--text-muted);
+}
+
+.offer-cta-row {
+  margin-top: clamp(1.5rem, 2.5vw, 2.5rem);
 }
 
 /* ----------------------------------------------------------------- contact */
@@ -472,8 +593,8 @@ a {
     grid-template-columns: 1fr;
   }
 
-  .portfolio-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .stats-bar {
+    grid-template-columns: 1fr;
   }
 
   .hero-topbar {
@@ -505,6 +626,15 @@ a {
   }
 }
 
+/* Below ~385px the auto-fill minmax(160px, 1fr) track collapses to a single
+   column against --page-margin's vw-based gutters. Force the intended 2-column
+   layout back on for small phones. */
+@media (max-width: 480px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* Autoplaying background video is motion the user may not want. Hiding it reveals
    the poster/cream field underneath, so the layout is unaffected. */
 @media (prefers-reduced-motion: reduce) {
@@ -518,7 +648,8 @@ a {
 
   .btn,
   .contact-circle,
-  .footer-backtotop {
+  .footer-backtotop,
+  .portfolio-item {
     transition: none;
   }
 }
