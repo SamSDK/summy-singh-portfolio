@@ -1,9 +1,18 @@
-// PLACEHOLDER — replace with Summy's real hero photo and booking link
+// PLACEHOLDER — replace with Summy's real hero footage, poster frame and booking link.
+//
+// videoUrl: leave empty until real footage exists. The hero renders the poster (or a
+// plain cream field) when it's empty, so the layout is correct either way — dropping a
+// file path or URL in here is the only change needed to go live.
+// The footage is expected to be mostly off-white, which is why the hero uses dark type
+// and a *lightening* scrim rather than the usual dark overlay.
 const hero = {
   name: 'SUMMY SINGH',
   tagline: 'Premium UGC Creator',
-  photoUrl: 'https://picsum.photos/seed/summy-hero/900/1100',
-  photoAlt: 'Summy Singh',
+  descriptor:
+    'Short-form content that actually converts — scripted, shot and delivered for brands that need to move fast.',
+  videoUrl: '',
+  posterUrl: '',
+  videoAlt: 'Summy Singh on camera',
   emailHref: 'mailto:hello@summysingh.com',
   bookingHref: 'https://cal.com/summysingh',
 }
@@ -63,12 +72,29 @@ const testimonials = [
   },
 ]
 
-// PLACEHOLDER — replace booking link with Summy's real scheduling link
+// PLACEHOLDER — copy is unresearched; `details` replaced the template's phone column with
+// Instagram, since creators get hired through DMs and there's no business number here.
+// The `\n` in `heading` is a deliberate line break, rendered via `white-space: pre-line`
+// so the break point is controlled rather than left to text wrapping. Keeping it one
+// string also keeps the heading a single node for accessibility and tests.
 const contact = {
-  heading: "Let's create something",
-  subheading: "Have a brand in mind? Reach out and let's talk content.",
+  eyebrow: "That's all for now.",
+  heading: 'Got a brand to grow?\nLet’s talk',
+  circleLabel: 'Get in touch',
+  details: [
+    { label: 'Email', value: 'hello@summysingh.com', href: hero.emailHref },
+    { label: 'Instagram', value: '@summysingh', href: 'https://instagram.com/summysingh' },
+  ],
   emailHref: hero.emailHref,
   bookingHref: hero.bookingHref,
+}
+
+// PLACEHOLDER — the stretched-letter wordmark is the reference template's personality.
+// Swap `wordmark` to 'Summy Singh' for a straighter, more premium read.
+const footer = {
+  tagline: 'let’s make something worth watching',
+  wordmark: 'Summyyyyy',
+  backToTopLabel: 'Back to top',
 }
 
 // Section headings shown above each section — not user-facing "content" in the
@@ -86,6 +112,16 @@ const ctaLabels = {
   booking: 'Book a Call',
 }
 
-const content = { hero, whoAmI, services, portfolio, testimonials, contact, sectionTitles, ctaLabels }
+const content = {
+  hero,
+  whoAmI,
+  services,
+  portfolio,
+  testimonials,
+  contact,
+  footer,
+  sectionTitles,
+  ctaLabels,
+}
 
 export default content

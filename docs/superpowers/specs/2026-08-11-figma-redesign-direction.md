@@ -105,9 +105,10 @@ rather than introduce a third mood.
 Cream + gradient mesh. Mono eyebrow → 77px two-line headline → hairline divider → detail columns
 (Email, Instagram) → circular CTA at 278px.
 
-**Open issue:** the circular CTA is currently frosted glass, which looks excellent but reads as
-*secondary* — glass recedes by nature. It's the primary "hire me" action. Recommendation is a solid
-off-black fill, keeping glass for genuinely secondary surfaces. Not yet decided.
+**DECIDED (2026-08-11): the circular CTA stays frosted glass.** Reviewed the concern that glass
+recedes and reads as secondary for a primary "hire me" action; Summy chose glass anyway for the
+look. Mitigation instead of replacement: heavier border and a darker, higher-contrast label so it
+holds attention without losing the frosted treatment.
 
 Phone was swapped for **Instagram** — creators get hired through DMs, and there's no business
 number in `content.js`.

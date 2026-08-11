@@ -1,12 +1,50 @@
-/* src/index.css */
+/* src/index.css
+ *
+ * Visual system for the cream + off-black redesign.
+ * Token values mirror the `Summy Tokens` collection in the Figma working file
+ * (docs/superpowers/specs/2026-08-11-figma-redesign-direction.md). Figma's
+ * BACKGROUND_BLUR maps 1:1 onto backdrop-filter, so the glass here is identical
+ * to the comp rather than an approximation.
+ */
+
 :root {
-  --color-bg-base: #f5f1eb;
-  --color-text: #1c1a17;
-  --color-glass-fill: rgba(255, 255, 255, 0.55);
-  --color-glass-border: rgba(255, 255, 255, 0.7);
-  --color-pill-fill: rgba(28, 26, 23, 0.08);
-  --shadow-glass: 0 8px 32px rgba(31, 25, 17, 0.12);
+  /* Colour — deliberately no pure white and no pure black anywhere */
+  --bg-page: #f7f3ec;
+  --bg-inverse: #17140f;
+  --bg-surface: #221d16;
+  --bg-muted: #efe8db;
+  --text-primary: #1a1712;
+  --text-inverse: #f7f3ec;
+  --text-muted: #7c7267;
+  --accent: #c2643c;
+  --border-subtle: #e2d9c9;
+
+  /* Glass */
+  --glass-fill: rgba(255, 255, 255, 0.55);
+  --glass-fill-dark: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-border-dark: rgba(26, 23, 18, 0.18);
+  --glass-blur: 20px;
+  --shadow-glass: 0 12px 32px rgba(26, 23, 18, 0.16);
+
+  /* Type — Figma sizes are absolute at a 1920px canvas, so each is expressed
+     as clamp(floor, <figma px / 1920 * 100>vw, ceiling) to scale down cleanly. */
+  --type-display-xl: clamp(3.5rem, 15.6vw, 18.75rem);
+  --type-display-l: clamp(2.5rem, 5.2vw, 6.25rem);
+  --type-heading-xl: clamp(2rem, 4vw, 4.8rem);
+  --type-heading-l: clamp(1.5rem, 2.1vw, 2.5rem);
+  --type-heading-m: clamp(1.25rem, 1.6vw, 1.875rem);
+  --type-body-l: clamp(1.05rem, 1.25vw, 1.5rem);
+  --type-body-m: clamp(1rem, 1vw, 1.25rem);
+  --type-body-s: 1rem;
+
+  /* Space */
+  --page-margin: clamp(1.25rem, 6.9vw, 8.3rem);
+  --section-y: clamp(3.5rem, 5.2vw, 6.25rem);
   --radius-card: 16px;
+
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 }
 
 * {
@@ -15,144 +53,243 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background:
-    radial-gradient(circle at 20% 20%, #ffd9c9 0%, transparent 45%),
-    radial-gradient(circle at 80% 30%, #c9e7ff 0%, transparent 50%),
-    radial-gradient(circle at 50% 90%, #ffe8b0 0%, transparent 55%),
-    var(--color-bg-base);
-  background-attachment: fixed;
-  color: var(--color-text);
-  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+/* ---------------------------------------------------------------- utilities */
+
+.section {
+  position: relative;
+  padding: var(--section-y) var(--page-margin);
+}
+
+.section-title {
+  font-size: var(--type-heading-xl);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: clamp(2rem, 3vw, 3.5rem);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--type-body-s);
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
 }
 
 .glass-card {
-  background: var(--color-glass-fill);
-  border: 1px solid var(--color-glass-border);
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-glass);
-  backdrop-filter: blur(16px) saturate(160%);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
-  padding: 24px;
+  backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  padding: clamp(1.25rem, 2vw, 2rem);
 }
 
 .pill {
   display: inline-block;
-  padding: 5px 12px;
+  padding: 0.5rem 1rem;
   border-radius: 999px;
-  font-size: 11px;
-  letter-spacing: 0.05em;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  background: var(--color-pill-fill);
-  color: var(--color-text);
-  margin: 4px 6px 4px 0;
-}
-
-.section {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 80px 24px;
-}
-
-.section-title {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 32px;
-  text-align: center;
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--text-primary);
+  margin: 0 0.5rem 0.5rem 0;
 }
 
 .btn {
   display: inline-block;
-  padding: 12px 28px;
+  padding: 1rem 2rem;
   border-radius: 999px;
-  border: 1px solid var(--color-glass-border);
-  background: var(--color-glass-fill);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: var(--color-text);
-  font-weight: 600;
+  border: 1px solid transparent;
+  font-size: var(--type-body-m);
+  font-weight: 500;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 0.15s ease;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .btn:hover {
   transform: translateY(-2px);
 }
 
-@media (max-width: 640px) {
-  .section {
-    padding: 56px 16px;
-  }
+.btn--solid {
+  background: var(--bg-inverse);
+  color: var(--text-inverse);
+  box-shadow: 0 8px 24px rgba(26, 23, 18, 0.22);
 }
+
+/* Glass reads as secondary by nature, which is exactly what the second CTA wants */
+.btn--glass {
+  background: var(--glass-fill);
+  border-color: var(--glass-border-dark);
+  color: var(--text-primary);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+}
+
+/* The gradient mesh: three soft radial fields with generous falloff so they blend
+   rather than reading as discrete blobs. `closest-side` keeps them circular. */
+.mesh {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  background:
+    radial-gradient(closest-side at 12% 18%, rgba(255, 217, 201, 0.95), transparent 100%),
+    radial-gradient(closest-side at 78% 28%, rgba(255, 232, 176, 0.85), transparent 100%),
+    radial-gradient(closest-side at 46% 80%, rgba(201, 231, 255, 0.45), transparent 100%);
+}
+
+/* -------------------------------------------------------------------- hero */
 
 .hero {
-  text-align: center;
-  padding-top: 48px;
+  position: relative;
+  min-height: min(100svh, 900px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3rem;
+  padding: clamp(2rem, 3vw, 3rem) var(--page-margin) clamp(3rem, 5vw, 5.5rem);
+  overflow: hidden;
+  background: var(--bg-muted);
 }
 
-.hero-name {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 16px;
+.hero-media {
+  position: absolute;
+  inset: 0;
+  background: #e9e4da;
 }
 
-.hero-card {
-  max-width: 420px;
-  margin: 0 auto;
-}
-
-.hero-photo {
+.hero-video {
   width: 100%;
-  border-radius: 12px;
+  height: 100%;
   object-fit: cover;
-  aspect-ratio: 4 / 5;
-  margin-bottom: 16px;
 }
 
+/* The footage is mostly off-white, so this scrim LIGHTENS rather than darkens —
+   it protects dark type from dark patches in the frame (hair, shadow, clothing). */
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(247, 243, 236, 0.6) 0%,
+    rgba(247, 243, 236, 0.12) 40%,
+    rgba(247, 243, 236, 0.88) 100%
+  );
+}
+
+.hero-placeholder-note {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--type-body-m);
+  color: rgba(26, 23, 18, 0.28);
+}
+
+.hero-topbar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.hero-mark {
+  font-family: var(--font-mono);
+  font-size: var(--type-body-s);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+.hero-descriptor {
+  max-width: 28rem;
+  text-align: right;
+  font-size: var(--type-body-s);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--text-primary);
+  opacity: 0.75;
+}
+
+.hero-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+/* Contained, never clipped — the reference template's marquee was rejected */
 .hero-tagline {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 20px;
+  font-size: var(--type-display-l);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
 }
 
 .hero-ctas {
   display: flex;
-  gap: 12px;
-  justify-content: center;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
+/* --------------------------------------------------------- middle sections */
+
 .who-am-i-card {
-  max-width: 640px;
-  margin: 0 auto;
-  text-align: center;
+  max-width: 60rem;
 }
 
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 1.25rem;
 }
 
 .service-card h3 {
-  margin-bottom: 8px;
+  font-size: var(--type-heading-m);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
 }
 
-@media (max-width: 768px) {
-  .services-grid {
-    grid-template-columns: 1fr;
-  }
+.service-card p {
+  color: var(--text-muted);
 }
 
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 1rem;
 }
 
 .portfolio-image {
@@ -163,40 +300,223 @@ body {
   box-shadow: var(--shadow-glass);
 }
 
-@media (max-width: 768px) {
-  .portfolio-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 .testimonials-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 1.25rem;
 }
 
 .testimonial-quote {
-  margin-bottom: 12px;
-  font-style: italic;
+  font-size: var(--type-body-l);
+  line-height: 1.45;
+  margin-bottom: 1rem;
 }
 
 .testimonial-author {
-  font-weight: 600;
-  font-size: 14px;
+  font-size: var(--type-body-s);
+  color: var(--text-muted);
 }
 
-@media (max-width: 768px) {
+/* ----------------------------------------------------------------- contact */
+
+.contact {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-page);
+  padding-bottom: clamp(4rem, 6vw, 7rem);
+}
+
+.contact-inner {
+  position: relative;
+}
+
+.contact-heading {
+  font-size: var(--type-heading-xl);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  /* `heading` carries a literal \n so the break point is controlled, not wrapped */
+  white-space: pre-line;
+  margin: 1rem 0 0;
+}
+
+.contact-divider {
+  height: 1px;
+  border: 0;
+  background: var(--border-subtle);
+  margin: clamp(3rem, 5vw, 5.5rem) 0 clamp(2rem, 3.5vw, 3.5rem);
+}
+
+.contact-details {
+  display: flex;
+  gap: clamp(2rem, 7vw, 7.5rem);
+  flex-wrap: wrap;
+}
+
+.contact-detail-label {
+  display: block;
+  font-size: var(--type-body-s);
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.contact-detail-value {
+  font-size: var(--type-body-l);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.18s ease;
+}
+
+.contact-detail-value:hover {
+  border-bottom-color: var(--text-primary);
+}
+
+/* Glass recedes by nature, so the primary CTA compensates with a heavier border
+   and full-strength label rather than the usual translucent treatment. */
+.contact-circle {
+  position: absolute;
+  right: clamp(0rem, 4vw, 6rem);
+  bottom: clamp(-1rem, 2vw, 3rem);
+  width: clamp(11rem, 14.5vw, 17.4rem);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  text-align: center;
+  text-decoration: none;
+  font-size: var(--type-body-m);
+  font-weight: 500;
+  color: var(--text-primary);
+  background: var(--glass-fill);
+  border: 2px solid var(--glass-border-dark);
+  box-shadow: var(--shadow-glass);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  transition: transform 0.2s ease;
+}
+
+.contact-circle:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.site-footer {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-inverse);
+  color: var(--text-inverse);
+  padding: clamp(2.5rem, 3.5vw, 3.5rem) 0 clamp(1rem, 2vw, 2rem);
+}
+
+.footer-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 0 clamp(1.25rem, 3.6vw, 4.3rem);
+}
+
+.footer-tagline {
+  font-size: var(--type-heading-xl);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  max-width: 20ch;
+}
+
+.footer-backtotop {
+  flex: none;
+  width: clamp(3.5rem, 7.4vw, 8.875rem);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-fill-dark);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  color: var(--text-inverse);
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.footer-backtotop:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.footer-backtotop svg {
+  width: 40%;
+  height: auto;
+}
+
+/* line-height MUST exceed 1 here: at display-xl the descenders on `y` fall below a
+   1.0 line box and get sliced by the footer's overflow. Caught in Figma the same way. */
+.footer-wordmark {
+  font-size: var(--type-display-xl);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+  padding: 0 clamp(0.75rem, 1.9vw, 2.25rem);
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------- responsive */
+
+@media (max-width: 900px) {
+  .services-grid,
   .testimonials-grid {
     grid-template-columns: 1fr;
   }
+
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-topbar {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .hero-descriptor {
+    text-align: left;
+    max-width: 100%;
+  }
+
+  .contact-circle {
+    position: static;
+    width: clamp(9rem, 40vw, 12rem);
+    margin: 2.5rem 0 0 auto;
+  }
 }
 
-.contact-card {
-  max-width: 560px;
-  margin: 0 auto;
-  text-align: center;
+@media (max-width: 560px) {
+  .contact-circle {
+    margin-inline: 0;
+  }
+
+  .footer-top {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
 }
 
-.contact-subheading {
-  margin: 12px 0 20px;
+/* Autoplaying background video is motion the user may not want. Hiding it reveals
+   the poster/cream field underneath, so the layout is unaffected. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-video {
+    display: none;
+  }
+
+  .btn,
+  .contact-circle,
+  .footer-backtotop {
+    transition: none;
+  }
 }

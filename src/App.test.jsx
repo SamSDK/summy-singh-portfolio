@@ -2,9 +2,12 @@ import { render, screen } from '@testing-library/react'
 import App from './App.jsx'
 import content from './data/content.js'
 
-test('renders all six sections in order', () => {
+test('renders all sections in order', () => {
   render(<App />)
-  const headings = screen.getAllByRole('heading').filter((h) => h.tagName === 'H2').map((h) => h.textContent)
+  const headings = screen
+    .getAllByRole('heading')
+    .filter((h) => h.tagName === 'H2')
+    .map((h) => h.textContent)
   expect(headings).toEqual([
     content.sectionTitles.whoAmI,
     content.sectionTitles.services,
@@ -13,4 +16,10 @@ test('renders all six sections in order', () => {
     content.contact.heading,
   ])
   expect(screen.getByRole('heading', { level: 1, name: content.hero.name })).toBeInTheDocument()
+})
+
+test('renders the footer below the contact section', () => {
+  render(<App />)
+  expect(screen.getByText(content.footer.wordmark)).toBeInTheDocument()
+  expect(screen.getByRole('link', { name: content.footer.backToTopLabel })).toBeInTheDocument()
 })
