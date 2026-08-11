@@ -43,7 +43,9 @@
   --section-y: clamp(3.5rem, 5.2vw, 6.25rem);
   --radius-card: 16px;
 
-  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Swapping the face = this line + the Google Fonts <link> in index.html. Nothing
+     else references a font family, so no component needs touching. */
+  --font-sans: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 }
 
