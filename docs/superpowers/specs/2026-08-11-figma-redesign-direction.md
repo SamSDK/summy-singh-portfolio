@@ -142,6 +142,26 @@ in node metadata and only catchable by screenshot.
 **The wordmark is an open coin-flip.** The stretched-letter joke is the template's personality and
 reads playful/unserious; a straight `SUMMY SINGH` at 300px may suit a *premium* positioning better.
 
+## Motion system (added 2026-08-11)
+
+From the saved animation-libraries research: **Lenis** (smooth scroll) + **GSAP ScrollTrigger**
+only — the list's own "minimal polish" recommendation. Rejected: Vanta/ShaderGradient/R3F
+(three.js runtime cost on a fast-loading portfolio; Vanta was already tried and rejected on
+Desker), liquid-glass (experimental), React Bits (its text effects are ~15 lines of GSAP).
+The animated-gradient itch is scratched by a 26s GSAP sine drift on the existing CSS mesh.
+
+Everything lives in `src/motion/useSiteMotion.js` — one hook called from App, targeting
+existing class names; components stay motion-agnostic. Hand-rolled text splitter
+(`splitText.js`) wraps words/chars in `.mask-line` spans for masked rises, keeps the original
+text as `aria-label`. Motion set: hero masked word-rise + topbar/CTA fade; once-only scroll
+reveals (power3.out, 60ms staggers) for headers/cards/tiles/client names; stats count-up;
+footer wordmark char-rise; mesh drift. All no-op under `prefers-reduced-motion` and in tests
+(`MODE === 'test'` guard — note `gsap.registerPlugin` still runs at import, which is why
+`setupTests.js` polyfills `matchMedia`). Hidden states are set from JS via `useLayoutEffect`
+(before first paint — plain `useEffect` flashes unanimated content), so no-JS users see a
+fully visible page. Hover rules are gated behind `(hover: hover) and (pointer: fine)`.
+Bundle cost: +53KB gzip (48→101KB total JS) — accepted.
+
 ## Constraints carried forward from the original spec
 
 - Plain CSS only — no Tailwind, no CSS-in-JS. The template needs no utility layer.

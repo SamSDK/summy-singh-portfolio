@@ -57,10 +57,6 @@
   padding: 0;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   background: var(--bg-page);
   color: var(--text-primary);
@@ -102,6 +98,18 @@ a {
   color: var(--text-muted);
 }
 
+/* Masks for text reveals: the outer span clips, the inner span rises out of it */
+.mask-line {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.mask-line > span {
+  display: inline-block;
+  will-change: transform;
+}
+
 .glass-card {
   background: var(--glass-fill);
   border: 1px solid var(--glass-border);
@@ -139,10 +147,6 @@ a {
   transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
-.btn:hover {
-  transform: translateY(-2px);
-}
-
 .btn--solid {
   background: var(--bg-inverse);
   color: var(--text-inverse);
@@ -164,6 +168,7 @@ a {
   position: absolute;
   inset: -20%;
   pointer-events: none;
+  will-change: transform;
   background:
     radial-gradient(closest-side at 12% 18%, rgba(255, 217, 201, 0.95), transparent 100%),
     radial-gradient(closest-side at 78% 28%, rgba(255, 232, 176, 0.85), transparent 100%),
@@ -377,10 +382,6 @@ a {
   transition: transform 0.18s ease;
 }
 
-.portfolio-item:hover {
-  transform: translateY(-6px);
-}
-
 .portfolio-tag {
   position: absolute;
   top: 0.5rem;
@@ -490,10 +491,6 @@ a {
   transition: border-color 0.18s ease;
 }
 
-.contact-detail-value:hover {
-  border-bottom-color: var(--text-primary);
-}
-
 /* Glass recedes by nature, so the primary CTA compensates with a heavier border
    and full-strength label rather than the usual translucent treatment. */
 .contact-circle {
@@ -516,10 +513,6 @@ a {
   backdrop-filter: blur(24px) saturate(160%);
   -webkit-backdrop-filter: blur(24px) saturate(160%);
   transition: transform 0.2s ease;
-}
-
-.contact-circle:hover {
-  transform: translateY(-4px) scale(1.02);
 }
 
 /* ------------------------------------------------------------------ footer */
@@ -564,11 +557,6 @@ a {
   transition: transform 0.2s ease, background 0.2s ease;
 }
 
-.footer-backtotop:hover {
-  transform: translateY(-3px);
-  background: rgba(255, 255, 255, 0.2);
-}
-
 .footer-backtotop svg {
   width: 40%;
   height: auto;
@@ -583,6 +571,31 @@ a {
   letter-spacing: -0.03em;
   padding: 0 clamp(0.75rem, 1.9vw, 2.25rem);
   white-space: nowrap;
+}
+
+/* Touch devices fire false hovers on tap, so every hover-only interaction is
+   gated behind a real pointing device. */
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .portfolio-item:hover {
+    transform: translateY(-6px);
+  }
+
+  .contact-detail-value:hover {
+    border-bottom-color: var(--text-primary);
+  }
+
+  .contact-circle:hover {
+    transform: translateY(-4px) scale(1.02);
+  }
+
+  .footer-backtotop:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.2);
+  }
 }
 
 /* ------------------------------------------------------------- responsive */
@@ -638,10 +651,6 @@ a {
 /* Autoplaying background video is motion the user may not want. Hiding it reveals
    the poster/cream field underneath, so the layout is unaffected. */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
   .hero-video {
     display: none;
   }

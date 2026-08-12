@@ -7,8 +7,10 @@ import Reviews from './components/Reviews.jsx'
 import Services from './components/Services.jsx'
 import Contact from './components/Contact.jsx'
 import Footer from './components/Footer.jsx'
+import useSiteMotion from './motion/useSiteMotion.js'
 
 export default function App() {
+  useSiteMotion()
   return (
     <>
       <main>
